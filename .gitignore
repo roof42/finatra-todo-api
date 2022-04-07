@@ -8,7 +8,7 @@
 #
 # see also test/files/.gitignore
 #
-
+project/
 #
 # JARs aren't checked in, they are fetched by sbt
 #
