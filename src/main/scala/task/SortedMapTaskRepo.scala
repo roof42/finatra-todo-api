@@ -7,14 +7,18 @@ class SortedMapTaskRepo {
 
   def getPong(): String = "pong"
 
-  def createNewTodo(todo: Todo): Int = {
+  def createNewTodo(plan: Plan): Todo = {
+    val id = generateId(plan)
+    todoList.addOne(id -> Todo(id, plan.detail))
+    todoList.last._2
+  }
+
+  private def generateId(plan: Plan): Int = {
     var item = todoList.lastOption
-    var id = item match {
+    item match {
       case Some(value) => value._1 + 1
       case None        => 0
     }
-    todoList.addOne(id -> Todo(id, todo.detail))
-    id
   }
 
   def moveToDoing(todo: Todo): Option[Doing] = {
