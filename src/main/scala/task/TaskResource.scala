@@ -18,7 +18,7 @@ class TaskResource @Inject() (repo: SortedMapTaskRepo) extends Controller {
 
   post("/todo") { plan: Plan =>
     val newTodo = repo.createNewTodo(plan)
-    response.created(s"new todo was created with id = ${newTodo.id}")
+    response.created(s"new todo was created")
   }
 
   get("/todo") { _: Request => repo.getAllItemInTodo() }
