@@ -17,12 +17,11 @@ class TaskServerSpec extends FeatureTest {
       path = "/todo",
       postBody = """
         |{
-        | "id": -1,
         | "detail": "buy banana"
         |}
         """.stripMargin,
       andExpect = Status.Created,
-      withJsonBody = "created 0"
+      withJsonBody = "new todo was created with id = 0"
     )
   }
 
