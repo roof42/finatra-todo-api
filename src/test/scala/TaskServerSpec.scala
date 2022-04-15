@@ -1,12 +1,13 @@
 import com.twitter.inject.server.FeatureTest
 import com.twitter.finatra.http.EmbeddedHttpServer
 import com.twitter.finagle.http.Status
+import task._
 
 class TaskServerSpec extends FeatureTest {
-
+  private val stubIdService = new StubIdService()
   override val server: EmbeddedHttpServer = new EmbeddedHttpServer(
     twitterServer = new TaskServer
-  )
+  ).bind[IdService].toInstance(stubIdService)
 
   test("Ping should return pong") {
     server.httpGet(path = "/ping", andExpect = Status.Ok)
@@ -21,7 +22,7 @@ class TaskServerSpec extends FeatureTest {
         |}
         """.stripMargin,
       andExpect = Status.Created,
-      withJsonBody = "new todo was created with id = 0"
+      withJsonBody = "new todo was created"
     )
   }
 
