@@ -1,14 +1,15 @@
 package task
 import scala.collection.mutable.SortedMap
+import com.google.inject.Inject
 
-class SortedMapTaskRepo {
+class SortedMapTaskRepo @Inject() (idService: IdService) {
   var todoList: SortedMap[Int, Todo] = SortedMap.empty[Int, Todo]
   var doingList: SortedMap[Int, Doing] = SortedMap.empty[Int, Doing]
 
   def getPong(): String = "pong"
 
   def createNewTodo(plan: Plan): Todo = {
-    val id = generateId(plan)
+    val id = idService.generateId()
     todoList.addOne(id -> Todo(id, plan.detail))
     todoList.last._2
   }
